@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>{% block title %} {% endblock %}</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="navbar-brand" href="{% url 'index' %}">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'admin:index' %}">Admin</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'basic_app:register' %}">Register</a></li>
+
+          {% if user.is_authenticated %}<!-- if the function authenticate(in view.py) has been called and true -->
+            <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'special' %}">Special</a></li>
+          {% else %}
+            <li class="nav-item"><a class="nav-link" href="{% url 'basic_app:user_login' %}">Login</a></li>
+          {% endif %}
+        </ul>
+      </div>
+    </nav>
+    <div class="container">
+      <!-- body_block is just a name -->
+      {% block body_block %}
+      <!-- Anything outside of this will be inherited if you extend! -->
+      {% endblock %}
+    </div>
+
+  </body>
+</html>
